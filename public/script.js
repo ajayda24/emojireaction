@@ -424,9 +424,16 @@ function createGame() {
   })
 }
 
-function joinGame() {
+const urlParams = new URLSearchParams(window.location.search)
+const joinQuery = urlParams.get('join')
+if(joinQuery) joinGame(joinQuery)
+function joinGame(joinQuery) {
+  var enteredJoinCode = modalInfoInput.value
+  if(joinQuery) {
+    enteredJoinCode = joinQuery
+  }
   gameCellsContainer.style.pointerEvents = 'none'
-  socket.emit('joinGame', { room: modalInfoInput.value })
+  socket.emit('joinGame', { room: enteredJoinCode })
   socket.on('startGame', (data) => {
     store.joinedOrCreated = true
     location.hash = '#'
@@ -463,7 +470,7 @@ function copyText(joinCode) {
   }, 1500)
   //navigator.clipboard.writeText(`http://localhost:3000/?join=${joinCode}`)
   navigator.clipboard.writeText(
-  `https://emojireaction.herokuapp.com/join=${joinCode}`
+  `https://emojireaction.herokuapp.com/?join=${joinCode}`
   )
 }
 
