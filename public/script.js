@@ -461,10 +461,10 @@ function copyText(joinCode) {
   setTimeout(() => {
     tooltip.classList.remove('tooltip-open', 'tooltip')
   }, 1500)
-  navigator.clipboard.writeText(`http://localhost:3000/?join=${joinCode}`)
-  // navigator.clipboard.writeText(
-  //   `https://chainreaction.herokuapp.com/join=${joinCode}`
-  // )
+  //navigator.clipboard.writeText(`http://localhost:3000/?join=${joinCode}`)
+  navigator.clipboard.writeText(
+  `https://emojireaction.herokuapp.com/join=${joinCode}`
+  )
 }
 
 function chatSubmit() {
