@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chain Reaction</title>
+
+    <link rel="stylesheet" href="./daisyui.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="./global.js"></script>
+  </head>
+  <body>
+    <p id="game-player-order" style="display: none"></p>
+    <p id="game-player-room" style="display: none"></p>
+    <div id="container" class="bg-base-100 container">
+      <div class="bg-neutral conatiner_gamescreen shadow-2xl">
+        <div class="card bg-base-300 header">
+          <a href="#info" class="btn btn-square btn-ghost">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              style="fill: rgba(0, 0, 0, 1)"
+            >
+              <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path>
+            </svg>
+          </a>
+          <div id="game-main-heading" class="text">
+            Chain Reaction Multiplayer
+          </div>
+          <a href="#chat" class="btn btn-square btn-ghost" onclick="chatIndicatorToggler()">
+            <div class="my-6 indicator">
+              <div id="chat-indicator" class="indicator-item badge badge-secondary" style="display: none;"></div>
+              <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              style="fill: rgba(0, 0, 0, 1)"
+            >
+              <path
+                d="M5 18v3.766l1.515-.909L11.277 18H16c1.103 0 2-.897 2-2V8c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h1zM4 8h12v8h-5.277L7 18.234V16H4V8z"
+              ></path>
+              <path
+                d="M20 2H8c-1.103 0-2 .897-2 2h12c1.103 0 2 .897 2 2v8c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2z"
+              ></path>
+            </svg>
+            </div>
+            
+          </a>
+        </div>
+        <div id="game-cells-container"></div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="info" class="modal">
+      <div class="modal-box">
+        <img id="winning-image" src="giphy.gif" alt="" />
+        <label class="label" style="margin-bottom: 20px">
+          <span id="modal-info-label-heading" class="label-text"
+            >Chain Reaction Multiplayer</span
+          >
+        </label>
+        <div id="modal-info-input-div" class="form-control">
+          <input
+            id="modal-info-input"
+            type="text"
+            placeholder="Join Code"
+            class="input input-primary input-bordered"
+          />
+        </div>
+        <div id="modal-info-buttons" class="modal-action">
+          <a href="#" class="btn btn-outline btn-neutral" onclick="createGame()"
+            >Create</a
+          >
+          <a href="#" class="btn btn-outline btn-primary" onclick="joinGame()"
+            >Join</a
+          >
+        </div>
+        <label class="label">
+          <span class="label-text">Developed by</span>
+          <br />
+          <span class="label-text">Ajay Daniel Trevor & Thejus Manoj</span>
+          <div class="source-code">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              viewBox="0 0 24 24"
+              style="fill: rgba(0, 0, 0, 1)"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12.026 2c-5.509 0-9.974 4.465-9.974 9.974 0 4.406 2.857 8.145 6.821 9.465.499.09.679-.217.679-.481 0-.237-.008-.865-.011-1.696-2.775.602-3.361-1.338-3.361-1.338-.452-1.152-1.107-1.459-1.107-1.459-.905-.619.069-.605.069-.605 1.002.07 1.527 1.028 1.527 1.028.89 1.524 2.336 1.084 2.902.829.091-.645.351-1.085.635-1.334-2.214-.251-4.542-1.107-4.542-4.93 0-1.087.389-1.979 1.024-2.675-.101-.253-.446-1.268.099-2.64 0 0 .837-.269 2.742 1.021a9.582 9.582 0 0 1 2.496-.336 9.554 9.554 0 0 1 2.496.336c1.906-1.291 2.742-1.021 2.742-1.021.545 1.372.203 2.387.099 2.64.64.696 1.024 1.587 1.024 2.675 0 3.833-2.33 4.675-4.552 4.922.355.308.675.916.675 1.846 0 1.334-.012 2.41-.012 2.737 0 .267.178.577.687.479C19.146 20.115 22 16.379 22 11.974 22 6.465 17.535 2 12.026 2z"
+              ></path>
+            </svg>
+            <p>Github</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Chat Modal -->
+
+    <div id="chat" class="modal">
+      <div class="modal-box">
+        <label class="label">
+          <span class="label-text text-neutral">Chat</span>
+        </label>
+        <div class="card text-center shadow-2xl chat-container">
+          <div id="chat-body-id" class="card-body chat-body">
+            <div class="shadow-lg bg-base-100 personal">
+              <div class="emoji">🙂</div>
+              hello world Lorem ipsum dolor, sit amet consectetur adipisicing
+              elit. Facere, nesciunt.
+            </div>
+            <div class="shadow-lg bg-base-100 personal">
+              <div class="emoji">🙂</div>
+
+              hello world Lorem ipsum dolor, sit amet consectetur adipisicing
+              elit. Facere, nesciunt.
+            </div>
+            <div class="shadow-lg bg-base-100 other">
+              <div class="emoji">🤵</div>
+
+              hello world Lorem ipsum dolor, sit amet consectetur adipisicing
+              elit. Facere, nesciunt.
+            </div>
+            <div class="shadow-lg bg-base-100 personal">
+              <div class="emoji">🙂</div>
+
+              hello world Lorem ipsum dolor, sit amet consectetur adipisicing
+              elit. Facere, nesciunt.
+            </div>
+            <div class="shadow-lg bg-base-100 other">
+              <div class="emoji">🤵</div>
+
+              hello world Lorem ipsum dolor, sit amet consectetur adipisicing
+              elit. Facere, nesciunt.
+            </div>
+            <div class="shadow-lg bg-base-100 personal">
+              <div class="emoji">🙂</div>
+
+              hello
+            </div>
+          </div>
+        </div>
+        <div class="form-control">
+          <input
+            id="chat-input"
+            type="text"
+            placeholder="Chat with Friend"
+            class="input input-md input-bordered input-neutral"
+          />
+          <button class="btn btn-primary" onclick="chatSubmit()">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              style="fill: rgb(255, 255, 255)"
+            >
+              <path
+                d="m21.426 11.095-17-8A.999.999 0 0 0 3.03 4.242L4.969 12 3.03 19.758a.998.998 0 0 0 1.396 1.147l17-8a1 1 0 0 0 0-1.81zM5.481 18.197l.839-3.357L12 12 6.32 9.16l-.839-3.357L18.651 12l-13.17 6.197z"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var chatModal = document.getElementById('chat')
+      var infoModal = document.getElementById('info')
+      location.hash = '#info'
+      window.addEventListener('hashchange', () => {
+        updateChatScroll()
+        if (!store.joinedOrCreated) location.hash = '#info'
+      })
+      window.addEventListener('click', (event) => {
+        if (event.target == chatModal) location.hash = '#'
+        if (event.target == infoModal && store.joinedOrCreated)
+          location.hash = '#'
+      });
+    </script>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

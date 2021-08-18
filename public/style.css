@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.game-btn {
+  background-color: aliceblue;
+  width: 50px;
+  height: 50px;
+  font-size: 1.2rem;
+}
+.game-btn:active:focus,
+.game-btn:active:hover {
+  background-color: rgba(240, 248, 255, 0.63);
+}
+.game-btn:hover {
+  background-color: aliceblue;
+}
+
+.container {
+  min-width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.conatiner_gamescreen {
+  width: 100%;
+  height: 100vh;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  /* padding: 0.3rem; */
+}
+
+.conatiner_gamescreen .header {
+  width: 100%;
+  height: 8vh;
+  margin-bottom: 0.5rem;
+  border-radius: 0px !important;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.conatiner_gamescreen .header .text {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+}
+
+#game-cells-container{
+  height: 88vh;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: center;
+  padding: .4rem;
+}
+
+#game-cells-container .game-btn span{
+  position: absolute;
+}
+
+
+
+
+/* Modal Styling */
+
+.modal-action {
+  justify-content: center;
+}
+.label {
+  justify-content: center;
+  margin-top: 1rem;
+  flex-direction: column;
+}
+.label .source-code {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.label span {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+/* Chat Modal */
+#chat .chat-container {
+  width: 100%;
+  height: 8vh;
+  margin-bottom: 0.5rem;
+  /* border-radius: 0px !important; */
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(137, 157, 173);
+  border: 2px solid #222;
+
+}
+.form-control {
+  display: flex;
+  flex-direction: row;
+}
+input {
+  width: 90%;
+  margin: 0 0.5rem;
+}
+#chat .card {
+  height: 50vh;
+  margin-bottom: 1rem;
+}
+
+#chat .chat-body {
+  overflow-y: scroll;
+  display: flex;
+  padding: .5rem;
+}
+
+#chat .chat-body .other {
+  min-width: 50%;
+  max-width: 80%;
+  align-self: flex-start;
+  margin: .5rem 0;
+  border-radius: 10px;
+  padding: 1rem 0;
+  display: flex;
+  text-align: left;
+}
+#chat .chat-body .personal {
+  min-width: 50%;
+  max-width: 80%;
+  align-self: flex-end;
+  margin: .5rem 0;
+  border-radius: 10px;
+  padding: 1rem 0;
+  display: flex;
+  text-align: left;
+}
+#chat .chat-body .emoji{
+  padding: 1rem;
+}
+
+#winning-image{
+  display: none;
+  width: 400px;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.badge{
+  padding: 0;
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: #3d4451 !important;
+}
+
+@media (min-width: 360px) {
+  .conatiner_gamescreen {
+    width: 360px;
+  }
+  .game-btn:hover {
+    background-color: rgba(240, 248, 255, 0.63);
+  }
+}
