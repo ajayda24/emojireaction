@@ -350,7 +350,7 @@ function gameOverTwoPlayer(losePerson) {
   const winner = currentPlayers.filter((a) => a != losePerson)
   store.joinedOrCreated = false
   location.hash = '#info'
-  modalInfoHeading.innerHTML = `${winner} Wins`
+  modalInfoHeading.innerHTML = `Chain Reaction Multiplayer <br><br> ${winner} Wins`
   document.getElementById('winning-image').style.display = 'block'
   setTimeout(() => {
     document.getElementById('winning-image').style.display = 'none'
@@ -513,6 +513,7 @@ function chatIndicatorToggler() {
 }
 
 socket.on('gameBoxClick', (data) => {
+  navigator.vibrate(200)
   chainReaction(data.btnInfo)
   chainReactionOutputAndGameOver()
 })
@@ -544,7 +545,7 @@ socket.on('chatRoom', (data) => {
 
   const chatBox = document.getElementById('chat-body-id')
   const div = document.createElement('div')
-  div.setAttribute('class', 'shadow-lg bg-base-100')
+  div.setAttribute('class', 'shadow-lg bg-base-100 chat-content')
   if (gamePlayerOrder.innerHTML == data.user.order)
     div.classList.add('personal')
   else div.classList.add('other')
@@ -556,4 +557,32 @@ socket.on('chatRoom', (data) => {
 socket.on('showNotification', () => {
   if (location.hash != '#chat')
     document.getElementById('chat-indicator').style.display = 'block'
+})
+
+window.addEventListener('offline', function (e) {
+  socket.emit('friendOffline', { room: gamePlayerRoom.innerHTML })
+  store.joinedOrCreated = false
+  location.hash = '#info'
+  modalInfoHeading.innerHTML = 'You are offline'
+  modalInfoButtons.innerHTML = `
+    <a
+      href="#"
+      class="btn btn-outline btn-primary"
+      onclick="location.reload()"
+      >New Game</a
+    >
+  `
+})
+
+window.addEventListener('online', function (e) {
+  store.joinedOrCreated = false
+  location.hash = '#info'
+  modalInfoButtons.innerHTML = `
+    <a
+      href="#"
+      class="btn btn-outline btn-primary"
+      onclick="location.reload()"
+      >New Game</a
+    >
+  `
 })

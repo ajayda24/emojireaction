@@ -23,7 +23,7 @@ const userJoinHelper = (id,room,order) => {
   return user
 }
 
-const userDeleteHelper = (id,room) => {
+const userDeleteHelper = (room) => {
   // const index = usersObj[room].findIndex((el) => el.id == id)
   // if (index >= 0) {
   //   usersObj[room].splice(index, 1)

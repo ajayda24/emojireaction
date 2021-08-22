@@ -113,32 +113,29 @@ input {
   height: 50vh;
   margin-bottom: 1rem;
 }
-
-#chat .chat-body {
+#chat .chat-body{
   overflow-y: scroll;
   display: flex;
   padding: .5rem;
 }
 
-#chat .chat-body .other {
-  min-width: 50%;
+#chat .chat-body .chat-content {
+  padding: 0.3rem 1rem;
+  min-width: 40%;
   max-width: 80%;
-  align-self: flex-start;
+  align-items: center;
   margin: .5rem 0;
   border-radius: 10px;
-  padding: 1rem 0;
   display: flex;
   text-align: left;
 }
+
+#chat .chat-body .other {
+  align-self: flex-start;
+}
 #chat .chat-body .personal {
-  min-width: 50%;
-  max-width: 80%;
   align-self: flex-end;
-  margin: .5rem 0;
-  border-radius: 10px;
-  padding: 1rem 0;
-  display: flex;
-  text-align: left;
+
 }
 #chat .chat-body .emoji{
   padding: 1rem;
