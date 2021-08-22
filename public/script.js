@@ -390,8 +390,15 @@ function createGame() {
             disabled
           />
           <div id='linkCopyTooltip' data-tip="Copy Link" class="tooltip">
-          <button id='modalJoinLinkButton' class="btn btn-primary" onClick=copyText('${joinCode}')>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: scaleX(-1);msFilter:progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);"><path d="M20 2H10a2 2 0 0 0-2 2v2h8a2 2 0 0 1 2 2v8h2a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"></path><path d="M4 22h10c1.103 0 2-.897 2-2V10c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2zm2-10h6v2H6v-2zm0 4h6v2H6v-2z"></path></svg>
+          <button id='modalJoinLinkButton' class="btn btn-primary" 
+          style='margin-right:5px'
+          onClick=copyText('${joinCode}')>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);"><path d="M20 2H10c-1.103 0-2 .897-2 2v4H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h10c1.103 0 2-.897 2-2v-4h4c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM4 20V10h10l.002 10H4zm16-6h-4v-4c0-1.103-.897-2-2-2h-4V4h10v10z"></path><path d="M6 12h6v2H6zm0 4h6v2H6z"></path></svg>
+          </button>
+          </div>
+          <div id='linkShareTooltip' data-tip="Share Link" class="tooltip">
+          <button id='modalJoinLinkButtonShare' class="btn btn-primary" onClick=shareText('${joinCode}')>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" style="fill: rgba(255, 255, 255, 1);"><path d="M11 7.05V4a1 1 0 0 0-1-1 1 1 0 0 0-.7.29l-7 7a1 1 0 0 0 0 1.42l7 7A1 1 0 0 0 11 18v-3.1h.85a10.89 10.89 0 0 1 8.36 3.72 1 1 0 0 0 1.11.35A1 1 0 0 0 22 18c0-9.12-8.08-10.68-11-10.95zm.85 5.83a14.74 14.74 0 0 0-2 .13A1 1 0 0 0 9 14v1.59L4.42 11 9 6.41V8a1 1 0 0 0 1 1c.91 0 8.11.2 9.67 6.43a13.07 13.07 0 0 0-7.82-2.55z"></path></svg>
           </button>
           </div>
         </div>
@@ -472,6 +479,28 @@ function copyText(joinCode) {
   navigator.clipboard.writeText(
   `https://emojireaction.herokuapp.com/?join=${joinCode}`
   )
+}
+async function shareText(joinCode){
+  const tooltip = document.getElementById('linkShareTooltip')
+  tooltip.classList.add('tooltip')
+  tooltip.classList.add('tooltip-open')
+  
+  if(navigator.share){
+
+    try {
+      await navigator.share({
+        title: 'Chain Reaction Multiplayer',
+        text: 'I am inviting you to play this game with me',
+        url: `http://localhost:3000/?join=${joinCode}`,
+      })
+      tooltip.setAttribute('data-tip', 'Link Shared')
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  setTimeout(() => {
+    tooltip.classList.remove('tooltip-open', 'tooltip')
+  }, 1500)
 }
 
 function chatSubmit() {

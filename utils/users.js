@@ -24,10 +24,11 @@ const userJoinHelper = (id,room,order) => {
 }
 
 const userDeleteHelper = (id,room) => {
-  const index = usersObj[room].findIndex((el) => el.id == id)
-  if (index >= 0) {
-    usersObj[room].splice(index, 1)
-  }
+  // const index = usersObj[room].findIndex((el) => el.id == id)
+  // if (index >= 0) {
+  //   usersObj[room].splice(index, 1)
+  // }
+  delete usersObj[room]
 }
 
 module.exports = { userJoinHelper, userDeleteHelper, usersObj }

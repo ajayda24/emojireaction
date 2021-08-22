@@ -69,6 +69,7 @@ io.on('connection', (socket) => {
     io.to(data.room).emit('gameInfo', { action: 'info', emoji: nextPlayer.emoji })
 
     socket.on('disconnect', () => {
+      userDeleteHelper(socket.id,data.room)
       io.to(data.room).emit('playerDisconnect', { room: data.room })
     })
   })
