@@ -4,7 +4,19 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chain Reaction</title>
+    <meta http-equiv="content-language" content="en" />
+    <meta name="keywords" content="chain reaction,multiplayer, game, ajay daniel trevor, socketio game" />
+    <meta name="author" content="Ajay Daniel Trevor & Thejus Manoj" />
+    <meta name="publisher" content="Ajay Daniel Trevor & Thejus Manoj" />
+    <meta name="copyright" content="Ajay Daniel Trevor & Thejus Manoj" />
+    <meta
+      name="description"
+      content="Chain Reaction Multiplayer by Ajay Daniel Trevor & Thejus Manoj"
+    />
+    <meta name="page-topic" content="Game" />
+    <meta name="page-type" content="Multiplayer Game" />
+    <meta name="audience" content="Everyone" />
+    <title>Chain Reaction Multiplayer</title>
 
     <link rel="stylesheet" href="./daisyui.css" />
     <link rel="stylesheet" href="style.css" />
@@ -30,25 +42,32 @@
           <div id="game-main-heading" class="text">
             Chain Reaction Multiplayer
           </div>
-          <a href="#chat" class="btn btn-square btn-ghost" onclick="chatIndicatorToggler()">
+          <a
+            href="#chat"
+            class="btn btn-square btn-ghost"
+            onclick="chatIndicatorToggler()"
+          >
             <div class="my-6 indicator">
-              <div id="chat-indicator" class="indicator-item badge badge-secondary" style="display: none;"></div>
+              <div
+                id="chat-indicator"
+                class="indicator-item badge badge-secondary"
+                style="display: none"
+              ></div>
               <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              style="fill: rgba(0, 0, 0, 1)"
-            >
-              <path
-                d="M5 18v3.766l1.515-.909L11.277 18H16c1.103 0 2-.897 2-2V8c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h1zM4 8h12v8h-5.277L7 18.234V16H4V8z"
-              ></path>
-              <path
-                d="M20 2H8c-1.103 0-2 .897-2 2h12c1.103 0 2 .897 2 2v8c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2z"
-              ></path>
-            </svg>
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                style="fill: rgba(0, 0, 0, 1)"
+              >
+                <path
+                  d="M5 18v3.766l1.515-.909L11.277 18H16c1.103 0 2-.897 2-2V8c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h1zM4 8h12v8h-5.277L7 18.234V16H4V8z"
+                ></path>
+                <path
+                  d="M20 2H8c-1.103 0-2 .897-2 2h12c1.103 0 2 .897 2 2v8c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2z"
+                ></path>
+              </svg>
             </div>
-            
           </a>
         </div>
         <div id="game-cells-container"></div>
@@ -112,9 +131,7 @@
           <span class="label-text text-neutral">Chat</span>
         </label>
         <div class="card text-center shadow-2xl chat-container">
-          <div id="chat-body-id" class="card-body chat-body">
-            
-          </div>
+          <div id="chat-body-id" class="card-body chat-body"></div>
         </div>
         <div class="form-control">
           <input
@@ -152,7 +169,7 @@
         if (event.target == chatModal) location.hash = '#'
         if (event.target == infoModal && store.joinedOrCreated)
           location.hash = '#'
-      });
+      })
     </script>
     <script src="socket.io/socket.io.js"></script>
     <script src="./script.js"></script>

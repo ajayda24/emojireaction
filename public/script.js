@@ -490,8 +490,8 @@ async function shareText(joinCode){
     try {
       await navigator.share({
         title: 'Chain Reaction Multiplayer',
-        text: 'I am inviting you to play this game with me',
-        url: `http://localhost:3000/?join=${joinCode}`,
+        text: 'Chain Reaction Multiplayer - I am inviting you to play this game with me',
+        url: `https://emojireaction.herokuapp.com/?join=${joinCode}`,
       })
       tooltip.setAttribute('data-tip', 'Link Shared')
     } catch (err) {
