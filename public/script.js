@@ -4,12 +4,12 @@ const numberOfPlayers = 2
 const row = 6
 const col = 11
 const rowsAndCols = row * col
-const characters = ['.', '😃', '🎯']
+const characters = ['.', '😎', '🎯']
 var gameCellState = new Array(rowsAndCols + 1).fill(0)
 var playerPosition = new Array(rowsAndCols + 1).fill(0)
 var playerNumber = 1
 var emojiNumberPerBox = []
-const currentPlayers = ['😃', '🎯']
+const currentPlayers = ['😎', '🎯']
 
 //Game Screen Container
 const gameCellsContainer = document.getElementById('game-cells-container')
@@ -386,7 +386,7 @@ function createGame() {
             type="text"
             placeholder="Chat with Friend"
             class="input input-md input-bordered input-primary"
-            value='https://chainreaction.herokuapp.com/join=${joinCode}'
+            value='https://emojireaction.ajdaniel.gq/?join=${joinCode}'
             disabled
           />
           <div id='linkCopyTooltip' data-tip="Copy Link" class="tooltip">
@@ -398,7 +398,7 @@ function createGame() {
           </div>
           <div id='linkShareTooltip' data-tip="Share Link" class="tooltip">
           <button id='modalJoinLinkButtonShare' class="btn btn-primary" onClick=shareText('${joinCode}')>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" style="fill: rgba(255, 255, 255, 1);"><path d="M11 7.05V4a1 1 0 0 0-1-1 1 1 0 0 0-.7.29l-7 7a1 1 0 0 0 0 1.42l7 7A1 1 0 0 0 11 18v-3.1h.85a10.89 10.89 0 0 1 8.36 3.72 1 1 0 0 0 1.11.35A1 1 0 0 0 22 18c0-9.12-8.08-10.68-11-10.95zm.85 5.83a14.74 14.74 0 0 0-2 .13A1 1 0 0 0 9 14v1.59L4.42 11 9 6.41V8a1 1 0 0 0 1 1c.91 0 8.11.2 9.67 6.43a13.07 13.07 0 0 0-7.82-2.55z"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" style="fill: rgba(255, 255, 255, 1);"><path d="M5.5 15a3.51 3.51 0 0 0 2.36-.93l6.26 3.58a3.06 3.06 0 0 0-.12.85 3.53 3.53 0 1 0 1.14-2.57l-6.26-3.58a2.74 2.74 0 0 0 .12-.76l6.15-3.52A3.49 3.49 0 1 0 14 5.5a3.35 3.35 0 0 0 .12.85L8.43 9.6A3.5 3.5 0 1 0 5.5 15zm12 2a1.5 1.5 0 1 1-1.5 1.5 1.5 1.5 0 0 1 1.5-1.5zm0-13A1.5 1.5 0 1 1 16 5.5 1.5 1.5 0 0 1 17.5 4zm-12 6A1.5 1.5 0 1 1 4 11.5 1.5 1.5 0 0 1 5.5 10z"></path></svg>
           </button>
           </div>
         </div>
@@ -433,10 +433,10 @@ function createGame() {
 
 const urlParams = new URLSearchParams(window.location.search)
 const joinQuery = urlParams.get('join')
-if(joinQuery) joinGame(joinQuery)
+if (joinQuery) joinGame(joinQuery)
 function joinGame(joinQuery) {
   var enteredJoinCode = modalInfoInput.value
-  if(joinQuery) {
+  if (joinQuery) {
     enteredJoinCode = joinQuery
   }
   gameCellsContainer.style.pointerEvents = 'none'
@@ -477,25 +477,24 @@ function copyText(joinCode) {
   }, 1500)
   //navigator.clipboard.writeText(`http://localhost:3000/?join=${joinCode}`)
   navigator.clipboard.writeText(
-  `https://emojireaction.herokuapp.com/?join=${joinCode}`
+    `https://emojireaction.ajdaniel.gq/?join=${joinCode}`
   )
 }
-async function shareText(joinCode){
+async function shareText(joinCode) {
   const tooltip = document.getElementById('linkShareTooltip')
   tooltip.classList.add('tooltip')
   tooltip.classList.add('tooltip-open')
-  
-  if(navigator.share){
 
+  if (navigator.share) {
     try {
       await navigator.share({
         title: 'Chain Reaction Multiplayer',
         text: 'I am inviting you to play this game with me',
-        url: `https://emojireaction.herokuapp.com/?join=${joinCode}`,
+        url: `https://emojireaction.ajdaniel.gq/?join=${joinCode}`,
       })
       tooltip.setAttribute('data-tip', 'Link Shared')
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
   }
   setTimeout(() => {
@@ -505,7 +504,9 @@ async function shareText(joinCode){
 
 function chatSubmit() {
   const chatInput = document.getElementById('chat-input').value
-  socket.emit('newChat', { room: gamePlayerRoom.innerHTML, chat: chatInput })
+  if (chatInput.trim() != '') {
+    socket.emit('newChat', { room: gamePlayerRoom.innerHTML, chat: chatInput })
+  }
 }
 
 function chatIndicatorToggler() {

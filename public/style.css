@@ -97,7 +97,7 @@
   /* border-radius: 0px !important; */
   display: flex;
   flex-direction: row;
-  background-color: rgb(137, 157, 173);
+  background-color: #899dad;
   border: 2px solid #222;
 
 }
@@ -138,7 +138,13 @@ input {
 
 }
 #chat .chat-body .emoji{
-  padding: 1rem;
+  padding: .1rem;
+  background-color: #ccc;
+  /* box-shadow: inset 0 0 0 15px rgb(0,0,0,0.9); */
+  /* border: 1px solid black; */
+  border-radius: 100px;
+  margin-right: .7rem;
+  font-size: 1.5rem;
 }
 
 #winning-image{
@@ -164,3 +170,4 @@ input {
     background-color: rgba(240, 248, 255, 0.63);
   }
 }
+

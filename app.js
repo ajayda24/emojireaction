@@ -19,7 +19,7 @@ io.on('connection', (socket) => {
   console.log('User has connected')
 
   socket.on('createGame', (data) => {
-    const joinCode = Math.random().toString(36).substr(2, 5)
+    const joinCode = Math.floor(Math.random()*100000).toString()
     const user = userJoinHelper(socket.id, joinCode, 1)
     socket.join(joinCode)
     socket.emit('createGameSuccess', user)
