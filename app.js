@@ -22,18 +22,18 @@ const reactPath = path.join(__dirname, 'routes', 'sample')
 app.use(express.static(reactPath))
 
 app.enable('trust proxy')
-app.use((request, response, next)=> {
-    if (!request.secure) {
-       return response.redirect("https://" + request.headers.host + request.url);
-    }
-    next();
+app.use((request, response, next) => {
+  if (!request.secure) {
+    return response.redirect('https://' + request.headers.host + request.url)
+  }
+  next()
 })
 
 app.get('/sample', (req, res, next) => {
   res.sendFile(reactPath + '/index.html')
 })
 
-const port = process.env.PORT || 443
+const port = process.env.PORT || 3000
 
 //const server = app.listen(port, () => {
 //  console.log(`Server started at port ${port}`)
