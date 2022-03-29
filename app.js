@@ -2,16 +2,48 @@ const path = require('path')
 const http = require('http')
 const express = require('express')
 
+const https = require('https')
+const fs = require('fs')
+
+const sslOptions = {
+  key: fs.readFileSync(path.join(__dirname, 'cert', 'privkey.pem')),
+  cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem')),
+  ca: fs.readFileSync(path.join(__dirname, 'cert', 'chain.pem')),
+}
+
 const { userJoinHelper, userDeleteHelper, usersObj } = require('./utils/users')
+const { dirname } = require('path')
 
 const app = express()
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-const port = process.env.PORT || 3000
-const server = app.listen(port, () => {
-  console.log(`Server started at port ${port}`)
+const reactPath = path.join(__dirname, 'routes', 'sample')
+app.use(express.static(reactPath))
+
+app.enable('trust proxy')
+app.use((request, response, next)=> {
+    if (!request.secure) {
+       return response.redirect("https://" + request.headers.host + request.url);
+    }
+    next();
 })
+
+app.get('/sample', (req, res, next) => {
+  res.sendFile(reactPath + '/index.html')
+})
+
+const port = process.env.PORT || 443
+
+//const server = app.listen(port, () => {
+//  console.log(`Server started at port ${port}`)
+//})
+
+const sslServer = https.createServer(sslOptions, app)
+
+const server = sslServer.listen(port, () =>
+  console.log(`Server started at port ${port}`)
+)
 
 const io = require('socket.io')(server)
 
@@ -19,7 +51,7 @@ io.on('connection', (socket) => {
   console.log('User has connected')
 
   socket.on('createGame', (data) => {
-    const joinCode = Math.floor(Math.random()*100000).toString()
+    const joinCode = Math.floor(Math.random() * 100000).toString()
     const user = userJoinHelper(socket.id, joinCode, 1)
     socket.join(joinCode)
     socket.emit('createGameSuccess', user)
@@ -46,13 +78,11 @@ io.on('connection', (socket) => {
   })
 
   socket.on('playGame', (data) => {
-    socket.broadcast
-      .to(data.room)
-      .emit('gameBoxClick', {
-        btnInfo: data.btnInfo,
-        room: data.room,
-        playerId: socket.id,
-      })
+    socket.broadcast.to(data.room).emit('gameBoxClick', {
+      btnInfo: data.btnInfo,
+      room: data.room,
+      playerId: socket.id,
+    })
 
     const roomArray = usersObj[data.room]
 
@@ -66,13 +96,11 @@ io.on('connection', (socket) => {
 
     const nextPlayer = roomArray.filter((el) => el.order == nextPlayerNumber)[0]
 
-    socket
-      .to(`${nextPlayer.id}`)
-      .emit('nextPlayer', {
-        btnInfo: data.btnInfo,
-        emoji: nextPlayer.emoji,
-        room: data.room,
-      })
+    socket.to(`${nextPlayer.id}`).emit('nextPlayer', {
+      btnInfo: data.btnInfo,
+      emoji: nextPlayer.emoji,
+      room: data.room,
+    })
     socket.emit('playerWhoClicked')
     io.to(data.room).emit('gameInfo', {
       action: 'info',
@@ -96,7 +124,7 @@ io.on('connection', (socket) => {
     socket.to(data.room).emit('showNotification')
   })
 
-  socket.on('friendOffline',data=>{
+  socket.on('friendOffline', (data) => {
     var rooms = Array.from(socket.rooms)
     userDeleteHelper(rooms[1])
     io.to(rooms[1]).emit('playerDisconnect')
