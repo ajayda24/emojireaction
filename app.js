@@ -35,15 +35,15 @@ app.get('/sample', (req, res, next) => {
 
 const port = process.env.PORT || 3000
 
-//const server = app.listen(port, () => {
-//  console.log(`Server started at port ${port}`)
-//})
-
-const sslServer = https.createServer(sslOptions, app)
-
-const server = sslServer.listen(port, () =>
+const server = app.listen(port, () => {
   console.log(`Server started at port ${port}`)
-)
+})
+
+//const sslServer = https.createServer(sslOptions, app)
+
+//const server = sslServer.listen(port, () =>
+//  console.log(`Server started at port ${port}`)
+//)
 
 const io = require('socket.io')(server)
 
