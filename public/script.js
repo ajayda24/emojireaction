@@ -386,7 +386,7 @@ function createGame() {
             type="text"
             placeholder="Chat with Friend"
             class="input input-md input-bordered input-primary"
-            value='https://emojireaction.ajdaniel.gq/?join=${joinCode}'
+            value='https://emojireaction.ajaydaniel.gq/?join=${joinCode}'
             disabled
           />
           <div id='linkCopyTooltip' data-tip="Copy Link" class="tooltip">
@@ -477,7 +477,7 @@ function copyText(joinCode) {
   }, 1500)
   //navigator.clipboard.writeText(`http://localhost:3000/?join=${joinCode}`)
   navigator.clipboard.writeText(
-    `https://emojireaction.ajdaniel.gq/?join=${joinCode}`
+    `https://emojireaction.ajaydaniel.gq/?join=${joinCode}`
   )
 }
 async function shareText(joinCode) {
@@ -490,7 +490,7 @@ async function shareText(joinCode) {
       await navigator.share({
         title: 'Chain Reaction Multiplayer',
         text: 'I am inviting you to play this game with me',
-        url: `https://emojireaction.ajdaniel.gq/?join=${joinCode}`,
+        url: `https://emojireaction.ajaydaniel.gq/?join=${joinCode}`,
       })
       tooltip.setAttribute('data-tip', 'Link Shared')
     } catch (err) {
